@@ -11,12 +11,23 @@
 <body>
     <div class="content">
         <h1>Gastos do mês</h1>
+        <div>
+            <form>
+                <label><input type="radio" name="modo_busca" value="nome" checked> Nome</label>
+                <label><input type="radio" name="modo_busca" value="valor"> Valor</label>
+                <label><input type="radio" name="modo_busca" value="pagamento"> Pagamento</label><br>
+
+                <input type="text" name="pesquisa">
+                <button>Pesquisar</button>
+            </form>
+        </div>
+
         <table>
             <tr>
                 <td>Nome</td>
-                <td>Data</td>
                 <td>Valor</td>
                 <td>Pagamento</td>
+                <td>Data</td>
             </tr>
             {% for transacao in transacoes %}
             <tr>

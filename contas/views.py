@@ -16,9 +16,31 @@ def home(request):
 
 def listagem(request):
     data = {}
-    data['transacoes'] = Transacao.objects.all()
+    modo_busca = request.GET.get('modo_busca')
+    termo_busca = request.GET.get('pesquisa', None)
 
-    return render(request, 'contas/listagem.html',data)
+    if termo_busca:
+        if modo_busca == 'nome':
+            transacoes = Transacao.objects.all()
+            data['transacoes'] = transacoes.filter(nome=termo_busca)
+        elif modo_busca == 'valor':
+            transacoes = Transacao.objects.all()
+            data['transacoes'] = transacoes.filter(valor=termo_busca)
+        elif modo_busca == 'pagamento':
+            if termo_busca == 'Dinheiro':
+                termo_busca = 1
+            elif termo_busca == 'Débito':
+                termo_busca = 2
+            elif termo_busca == 'Credito':
+                termo_busca = 3
+            elif termo_busca == 'Outros':
+                termo_busca = 4
+            transacoes = Transacao.objects.all()
+            data['transacoes'] = transacoes.filter(pagamento=termo_busca)
+    else:
+        data['transacoes'] = Transacao.objects.all()
+
+    return render(request, 'contas/listagem.html', data)
 
 def nova_transacao(request):
     data = {}

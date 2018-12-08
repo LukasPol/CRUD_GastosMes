@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="content">
-    <form action="" method="post">
+    <form method="POST">
 
         {% csrf_token %} 
         <!-- evita ataques, não permite que pessoas em viem dados que o form nn quer-->
@@ -18,8 +18,9 @@
         {{ form.as_p }} 
         <!-- Para colocar todos o campos em 'p' separados -->
 
-    </form>
         <button type="submit"> Salvar </button>
+    </form>
+        
 
         {% if transacao %}
             <a href="{% url 'url_delete' transacao.id %}">Deletar</a>
